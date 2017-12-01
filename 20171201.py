@@ -1,35 +1,25 @@
 #!/usr/bin/env python3
 
-# Answer for the first of december
+# 2017-12-01
+# First part
 
 f = open('input_data.txt', 'r')
-number = f.read()
-number_list = list(number.rstrip())
-original = number_list[:]
-first = number_list.pop(0)
-number_list.append(first)
-
-# number_list_diff = list(map((lambda x, y: x == y), original, number_list))
-number_list_diff = [x == y for x, y in zip(number_list, original)]
-
-# repeats = list(map((lambda x, y: (int(y) if x else 0)), number_list_diff, original))
-repeats = [(int(y) if x else 0) for x, y in zip(number_list_diff, original)]
-
+number = f.read().rstrip()
+first = number[0]
+second = number[1:len(number)]
+lagged = second + first
+diff = [x == y for x, y in zip(number, lagged)]
+repeats = [(int(y) if x else 0) for x, y in zip(diff, number)]
 total = sum(repeats)
 print(total)
 
-
-# second part
-
-list_length = len(number_list)
-number_list = original[:]
-
-first_part = number_list[0:int(list_length / 2)]
-second_part = number_list[int(list_length/2):list_length]
-
-composite = second_part + first_part
-number_list_diff = [x == y for x, y in zip(number_list, composite)]
-repeats = [(int(y) if x else 0) for x, y in zip(number_list_diff, original)]
+# Second part
+list_length = len(number)
+first = number[0:int(list_length / 2)]
+second = number[int(list_length/2):list_length]
+lagged = second + first
+diff = [x == y for x, y in zip(number, lagged)]
+repeats = [(int(y) if x else 0) for x, y in zip(diff, number)]
 total = sum(repeats)
 print(total)
 
