@@ -2,7 +2,6 @@
 
 # 2017-12-01
 # First part
-
 f = open('input_data.txt', 'r')
 number = f.read().rstrip()
 first = number[0]
