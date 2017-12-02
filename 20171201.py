@@ -9,8 +9,7 @@ def sum_repeats(number, lag):
     first = number[0:lag]
     second = number[lag:len(number)]
     lagged = second + first
-    diff = [x == y for x, y in zip(number, lagged)]
-    repeats = [(int(y) if x else 0) for x, y in zip(diff, number)]
+    repeats = [(int(y) if (x == y) else 0) for x, y in zip(lagged, number)]
     total = sum(repeats)
     print(total)
 
