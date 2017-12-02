@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
 # 2017-12-01
-# First part
-f = open('input_data.txt', 'r')
-number = f.read().rstrip()
-
 def sum_repeats(number, lag):
     first = number[0:lag]
     second = number[lag:len(number)]
@@ -14,5 +10,8 @@ def sum_repeats(number, lag):
     print(total)
 
 if __name__ == '__main__':
-    sum_repeats(number, 1)
-    sum_repeats(number, int(len(number) / 2))
+    with open('input_data.txt', 'r') as f:
+        number = f.read().rstrip()
+        
+        sum_repeats(number, 1)
+        sum_repeats(number, int(len(number) / 2))
