@@ -38,7 +38,5 @@ if __name__ == '__main__':
     with open('input_data_20171202.csv', 'r') as csvfile:
         input = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
         print(checksum(input)) 
-
-    with open('input_data_20171202.csv', 'r') as csvfile:
-        input = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
+        csvfile.seek(0)  # to reset the reader row pointer
         print(checksum_div(input))
