@@ -21,7 +21,6 @@ def find_pairs_division(row):
     div = [int(num / den) for i, num in enumerate(row) for den in row[i + 1:len(row)] if num % den == 0]
     return(div)
 
-
 def divisions(input_csv):
     divs = []
     for row in input_csv:
