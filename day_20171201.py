@@ -8,6 +8,7 @@ def sum_repeats(number, lag):
     repeats = [(int(y) if (x == y) else 0) for x, y in zip(lagged, number)]
     total = sum(repeats)
     print(total)
+    return(total)  # returning it so it can be tested
 
 if __name__ == '__main__':
     with open('data/input_data.txt', 'r') as f:
