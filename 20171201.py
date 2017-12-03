@@ -10,7 +10,7 @@ def sum_repeats(number, lag):
     print(total)
 
 if __name__ == '__main__':
-    with open('input_data.txt', 'r') as f:
+    with open('data/input_data.txt', 'r') as f:
         number = f.read().rstrip()
         
         sum_repeats(number, 1)
