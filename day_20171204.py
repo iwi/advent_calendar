@@ -4,6 +4,8 @@ AoC solution day four
 2017-12-04
 """
 
+# Part 1
+
 def is_valid(passphrase):
     """
     validate passphrases with no repeats
@@ -12,6 +14,17 @@ def is_valid(passphrase):
     valid = True
     for word in list_of_words:
         valid_word = list_of_words.count(word) == 1
+        valid = valid & valid_word
+    return valid 
+
+# Part 2
+
+def has_anagrams(passphrase):
+    list_of_words = passphrase.split()
+    list_of_sorted_words = [''.join(sorted(word)) for word in list_of_words]
+    valid = True
+    for word in list_of_sorted_words:
+        valid_word = list_of_sorted_words.count(word) == 1
         valid = valid & valid_word
     return valid 
 
@@ -27,3 +40,5 @@ if __name__ == '__main__':
     assert is_valid('aa aa bb') is False
     assert is_valid('a b c d') is True
 
+    total = sum(list(map(has_anagrams, tt)))
+    print('valid passwords without anagrams: ', total)
