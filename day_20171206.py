@@ -7,10 +7,11 @@ import csv
 
 # Part one
 def is_known(memory_distribution, known_distributions):
-    for distribution in known_distributions:
+    for index, distribution in enumerate(known_distributions):
         if distribution == memory_distribution:
-            return True
-    return False
+            return index
+
+    return None
 
 
 def redistribute(memory_distribution):
@@ -44,15 +45,17 @@ def count_redistributions(memory_bank):
     print(known_distributions)
     memory_distribution = list(redistribute(memory_bank))
     counter = 1
+    known_index = is_known(memory_distribution, known_distributions)
 
-    while not is_known(memory_distribution, known_distributions):
+    while known_index is None:
         known_distributions.append(list(memory_distribution))
         print(sum(memory_distribution))
         memory_distribution = list(redistribute(memory_distribution))
         counter += 1
+        known_index = is_known(memory_distribution, known_distributions)
         print('counter:', counter, '   is_known:', is_known(memory_distribution, known_distributions))
 
-    return counter
+    return counter, known_index
 
 
 if __name__ == '__main__':
