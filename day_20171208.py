@@ -49,9 +49,13 @@ def interpret(registers, inst):
 
 
 def update_registers(registers, instructions):
+    max_so_far = 0
     for inst in instructions:
         registers = interpret(registers, inst)
-    return registers
+        max_index = max(registers, key=registers.get)
+        max_so_far = max(max_so_far, registers[max_index])
+
+    return registers, max_so_far
 
 
 if __name__ == '__main__':
@@ -64,8 +68,9 @@ if __name__ == '__main__':
     instructions = prepare_instructions(instructions)
     registers = build_registers_list(instructions)
 
-    registers = update_registers(registers, instructions) 
+    registers, all_time_max = update_registers(registers, instructions) 
     mx = max(registers, key=registers.get)
     print(registers)
-    print(registers[mx])
+    print('final max: ', registers[mx])
+    print('all time max: ', all_time_max)
 
