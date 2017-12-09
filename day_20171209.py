@@ -20,6 +20,9 @@ def open_rubbish(status):
 
     if status['open_rubbish'] is 'off':
         status['open_rubbish'] = 'on'
+        return status
+
+    status['rubbish_counter'] += 1
     return status
 
 def close_rubbish(status):
@@ -37,6 +40,9 @@ def open_group(status):
         return status
     if status['open_rubbish'] is 'off':
         status['open_curlies'] += 1
+        return status
+
+    status['rubbish_counter'] += 1
     return status
 
 
@@ -48,6 +54,9 @@ def close_group(status):
         if status['open_curlies'] > 0:
             status['group_counter'] += status['open_curlies']
             status['open_curlies'] -= 1
+            return status
+
+    status['rubbish_counter'] += 1
     return status
     
 
@@ -65,6 +74,8 @@ def update(status, char):
     if char not in meaningful_chars:
         if status['open_escaper'] is 'on':
             status['open_escaper'] = 'off'
+        elif status['open_rubbish'] is 'on':
+            status['rubbish_counter'] += 1
         return status
     status = react(char, status)
     return status
@@ -75,14 +86,13 @@ def count_groups(stream):
         'group_counter': 0,
         'open_curlies': 0,
         'open_rubbish': 'off',
-        'open_escaper': 'off'}
-
+        'open_escaper': 'off',
+        'rubbish_counter': 0}
     for char in stream:
         status = update(status, char)
         print(char)
         print(status)
-
-    return status['group_counter']
+    return status['group_counter'], status['rubbish_counter']
 
 
 if __name__ == '__main__':
@@ -92,5 +102,6 @@ if __name__ == '__main__':
         stream = f.read().rstrip()
 
     stream = list(str(stream))
-    groups = count_groups(stream)
+    groups, rubbish = count_groups(stream)
     print(groups)
+    print(rubbish)
