@@ -13,9 +13,15 @@ def get_subsequence(start, end, sequence):
         return sequence[start:] + sequence[:end + 1]
 
 
-def substitute_subsequence(subsequence, sequence, start, end):
+def substitute_subsequence(subsequence, sequence, start, end, length):
     if end >= start:
-        sequence[start:end + 1] = subsequence
+        if length <= len(sequence):
+            sequence[start:end + 1] = subsequence
+        else:
+            start = start + int(length % len(sequence))
+            end = start - 1
+            sequence[start:] = subsequence[:len(sequence[start:])]
+            sequence[:end + 1] = subsequence[len(sequence) - start:]
     else:
         sequence[start:] = subsequence[:len(sequence[start:])]
         sequence[:end + 1] = subsequence[len(sequence) - start:]
@@ -26,16 +32,31 @@ def substitute_subsequence(subsequence, sequence, start, end):
 def apply_length(length, status):
     position = int(status['position'])
     skip_size = status['skip_size']
-    sequence = status['sequence']
+    sequence = status['sequence'].copy()
+    print('sequence ', sequence)
     start = int(position)
-    end = int((position + length) % len(sequence)) - 1
+    print('start ', start)
+    if length <= len(sequence):
+        end = int((position + length) % len(sequence)) - 1
+    else:
+        if start == 0:
+            end = len(sequence)
+        else:
+            end = start - 1
+    print('end ', end)
     subsequence = get_subsequence(start, end, sequence)
+    print('subsequence', subsequence)
     transformed_subsequence = list(reversed(subsequence))
-    transformed_sequence = substitute_subsequence(transformed_subsequence, sequence, start, end)
+    print('transformed subseq ', transformed_subsequence)
+    transformed_sequence = substitute_subsequence(transformed_subsequence, sequence, start, end, length) 
+    print('transformed sequence ', transformed_sequence)
     transformed_status = status.copy()
     transformed_status['position'] = int((position + length + skip_size) % len(sequence))
-    transformed_status['sequence'] = transformed_sequence
+    if length != 0:
+        transformed_status['sequence'] = transformed_sequence
+    print(status)
     transformed_status['skip_size'] += 1
+    print(status)
     return transformed_status
 
 
@@ -60,7 +81,7 @@ def checksum(hash):
 if __name__ == '__main__':
     lengths = []
     with open('data/input_data_201712010.csv', 'r') as csvfile:
-    # with open('data/test_10.csv', 'r') as csvfile:
+    # with open('data/test_10_2.csv', 'r') as csvfile:
         data = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONNUMERIC)
         for element in data:
             lengths.append(element)
