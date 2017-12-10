@@ -4,15 +4,21 @@ import day_201712010 as ten
 def test_hash():
     lengths = [3, 4, 1, 5]
     sequence = list(range(5))
-    assert ten.hash(sequence, lengths) == [3, 4, 2, 1, 0]
+    position = 0
+    skip_size = 0
+    assert ten.hash(sequence, lengths, position, skip_size)['sequence'] == [3, 4, 2, 1, 0]
 
     lengths = [0]
     sequence = list(range(5))
-    assert ten.hash(sequence, lengths) == [0, 1, 2, 3, 4]
+    position = 0
+    skip_size = 0
+    assert ten.hash(sequence, lengths, position, skip_size)['sequence'] == [0, 1, 2, 3, 4]
 
     lengths = [7]
     sequence = list(range(5))
-    assert ten.hash(sequence, lengths) == [1, 0, 4, 3, 2]
+    position = 0
+    skip_size = 0
+    assert ten.hash(sequence, lengths, position, skip_size)['sequence'] == [1, 0, 4, 3, 2]
 
 def test_get_subsequence():
     sequence = [0, 1, 2, 3, 4]
@@ -106,3 +112,17 @@ def test_apply_length():
 def test_checksum():
     hashed_sequence = [4, 3, 0, 1, 2]
     assert ten.checksum(hashed_sequence) == 12
+
+
+def test_convert_char_to_ASCII():
+    assert ten.convert_char_to_ASCII('0') == 48
+    assert ten.convert_char_to_ASCII('1') == 49
+    assert ten.convert_char_to_ASCII('2') == 50
+    assert ten.convert_char_to_ASCII('3') == 51
+    assert ten.convert_char_to_ASCII('4') == 52
+    assert ten.convert_char_to_ASCII('5') == 53
+    assert ten.convert_char_to_ASCII('6') == 54
+    assert ten.convert_char_to_ASCII('7') == 55
+    assert ten.convert_char_to_ASCII('8') == 56
+    assert ten.convert_char_to_ASCII('9') == 57
+    assert ten.convert_char_to_ASCII(',') == 44
