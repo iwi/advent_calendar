@@ -60,10 +60,10 @@ def apply_length(length, status):
     return transformed_status
 
 
-def hash(sequence, lengths):
+def hash(sequence, lengths, position, skip_size):
     status = {
-        'position': 0,
-        'skip_size': 0,
+        'position': position,
+        'skip_size': skip_size,
         'sequence': sequence}
     print(status)
 
@@ -71,11 +71,32 @@ def hash(sequence, lengths):
         status = apply_length(length, status)
         print(status)
     
-    return status['sequence']
+    return status
 
 
 def checksum(hash):
     return hash[0] * hash[1]
+
+
+# Part 2
+
+def convert_char_to_ASCII(char):
+    dictionary = {
+        '0': 48,
+        '1': 49,
+        '2': 50,
+        '3': 51,
+        '4': 52,
+        '5': 53,
+        '6': 54,
+        '7': 55,
+        '8': 56,
+        '9': 57,
+        ',': 44 
+    }
+    return dictionary[char]
+
+
 
 
 if __name__ == '__main__':
@@ -86,7 +107,21 @@ if __name__ == '__main__':
         for element in data:
             lengths.append(element)
         lengths = sum(lengths, [])
+        ascii_list = []
+        for element in lengths:
+            ascii_lengths = [ord(str(item)) for item in str(int(element))]
+            ascii_list.append(ascii_lengths)
+        ll = []
+        for x in ascii_list:
+            ll.append(44)
+            for y in x:
+                ll.append(y)
+
+        ll.pop(0)
+        for element in [17, 31, 73, 47, 23]:
+            ll.append(element)
+
 
         sequence = list(range(256))
-        hashed_sequence = hash(sequence, lengths)
+        hashed_sequence = hash(sequence, lengths, 0, 0)['sequence']
         print('Checksum: ', checksum(hashed_sequence))
