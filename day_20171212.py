@@ -19,7 +19,6 @@ def get_connected_to(program, connected, group):
 
 if __name__ == '__main__':
     connections = []
-    # with open('data/test_12.txt', 'r') as f:
     with open('data/input_data_20171212.txt', 'r') as f:
            for line in f:
                connections.append(line.rstrip())
@@ -32,8 +31,18 @@ if __name__ == '__main__':
             clean.append(int(prog.rstrip(',')))
         connected.append(clean)
 
+    gs = []
+    cumm_groups = []
+
+    for program in range(len(conns)):
+        if program not in cumm_groups:
+            gs.append(get_connected_to(program, connected, []))
+        cumm_groups = set(sum(gs, []))
+
+    print(gs)
+    print('number of groups: ', len(gs))
+
     group = []
     group = get_connected_to(0, connected, group)
-
     print('group: ', group)
     print('number of elements: ', len(group))
