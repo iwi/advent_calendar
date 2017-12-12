@@ -96,20 +96,29 @@ def compress(dirs):
     return compressed_dirs
 
 
+def final_distance(directions):
+    dir_count = c.Counter(directions)
+    reduced_count = reduce_pairs(dir_count)
+    reduced_count = reduce_triplets(reduced_count)
+    compressed_count = compress(reduced_count)
+    return sum(compressed_count.values())
+
 if __name__ == '__main__':
     directions = []
     with open('data/input_data_20171211.csv', 'r') as csvfile:
         data = csv.reader(csvfile, delimiter=',')
         directions = sum(list(data), [])
-        dir_count = c.Counter(directions)
-        print(dir_count)
-        reduced_count = reduce_pairs(dir_count)
-        print(reduced_count)
-        reduced_count = reduce_triplets(reduced_count)
-        print(reduced_count)
-        compressed_count = compress(reduced_count)
-        print(compressed_count)
-        print(sum(compressed_count.values()))
+        print(final_distance(directions))
+
+        # part 2
+        distances = []
+        for i in range(len(directions)):
+            subset = directions[0:i]
+            distances.append(final_distance(subset))
+        print(max(distances))
+                
+
+
 
 
         
