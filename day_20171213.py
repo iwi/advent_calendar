@@ -13,19 +13,30 @@ def get_scanner_position(t, rg):
         return p
 
 
-def calculate_severity(layers):
-    print(layers)
+def calculate_severity(layers, delay = 0):
     severity = 0
     for t in range(len(layers)):
-        print('t: ', t)
         if layers[t]['wall'] == True:
-            if 0 == get_scanner_position(t, layers[t]['range']):
-                layers[t]['severity'] = layers[t]['range'] * t
+            if 0 == get_scanner_position(t + delay, layers[t]['range']):
                 severity += layers[t]['range'] * t
-                print(severity)
-
     return severity
 
+
+def calculate_min_delay(layers):
+    delay = 2682052
+    first_range = int((layers[0]['range'] - 1) * 2)
+    severity = calculate_severity(layers, delay)
+    print('delay: ', delay)
+    print('severity: ', severity)
+    while severity != 0:
+        delay += 1
+        severity = calculate_severity(layers, delay)
+        print('delay mod range: ', delay % first_range)
+        if (delay % first_range) == 0:
+            severity += 1
+        print('delay: ', delay)
+        print('severity: ', severity)
+    return delay
 
 
 if __name__ == '__main__':
@@ -63,5 +74,9 @@ if __name__ == '__main__':
         layers.append(layer_status)
 
     severity = calculate_severity(layers)
-    print(severity)
+    print('severity with no delay: ', severity)
+
+    delay = calculate_min_delay(layers)
+    print('delay: ', delay)
+
 
