@@ -116,7 +116,7 @@ def real_hashing(input_string):
     for ch in input_string:
         ll.append(ord(ch))
     ll = ll + [17, 31, 73, 47, 23]
-    print(ll)
+    # print(ll)
     lengths = ll[:]
     sequence = list(range(256))
     status = {
@@ -160,7 +160,7 @@ def hash(input):
     input_string += [17, 31, 73, 47, 23]
     sparse_hash = reverse(input_string, 64)
     dense_hash = densify_hash(sparse_hash)
-    print(dense_hash)
+    # print(dense_hash)
     hex_hash = hex_representation(dense_hash)
     return str(hex_hash)
 
@@ -179,14 +179,18 @@ if __name__ == '__main__':
             input_string += ',' + str(int(element))
             input_string = input_string[1:]
 
-        print('input string:', input_string)
+        # print('input string:', input_string)
+        # if (delay % first_range) == 0:
+        #     severity += 1
+        # if (delay % first_range) == 0:
+        #     severity += 1
 
         hex_hash = hash(input_string)
-        print('hash: ', hex_hash)
+        # print('hash: ', hex_hash)
         
         sequence = list(range(256))
         hashed_sequence = basic_hash(sequence, lengths, 0, 0)['sequence']
-        print('Checksum: ', checksum(hashed_sequence))
+        # print('Checksum: ', checksum(hashed_sequence))
 
 
 
@@ -232,27 +236,27 @@ def kh(dense):
     return knothash
 
 
-start = time()
+#start = time()
 
-inp = '63,144,180,149,1,255,167,84,125,65,188,0,2,254,229,24'
-text = [63,144,180,149,1,255,167,84,125,65,188,0,2,254,229,24]
-inp = '31,2,85,1,80,109,35,63,98,255,0,13,105,254,128,33'
-text = [31,2,85,1,80,109,35,63,98,255,0,13,105,254,128,33]
-text2 = []
+#inp = '63,144,180,149,1,255,167,84,125,65,188,0,2,254,229,24'
+#text = [63,144,180,149,1,255,167,84,125,65,188,0,2,254,229,24]
+#inp = '31,2,85,1,80,109,35,63,98,255,0,13,105,254,128,33'
+#text = [31,2,85,1,80,109,35,63,98,255,0,13,105,254,128,33]
+#text2 = []
 
-for i in range(len(inp)):
-    text2.append(ord(inp[i]))
-text2 += [17, 31, 73, 47, 23]
+#for i in range(len(inp)):
+#    text2.append(ord(inp[i]))
+#text2 += [17, 31, 73, 47, 23]
 
-knot = reverse(text, 1)
-sparce = reverse(text2, 64)
+#knot = reverse(text, 1)
+#sparce = reverse(text2, 64)
 
-dense = dense(sparce)
-knothash = kh(dense)
+#dense = dense(sparce)
+#knothash = kh(dense)
 
-print('Part One: ' + str(knot[0]*knot[1]))
-print('Part Two: ' + knothash)
-print('Completed in ' + str(time() - start) + ' seconds.')
+#print('Part One: ' + str(knot[0]*knot[1]))
+#print('Part Two: ' + knothash)
+#print('Completed in ' + str(time() - start) + ' seconds.')
 
-######################
+#######################
 
