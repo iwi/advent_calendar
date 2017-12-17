@@ -66,6 +66,24 @@ def dance(group, moves):
     return group
 
 
+def repeat_dance(group, moves, times):
+    for t in range(times):
+        group = dance(group, moves)
+    return group
+
+
+def find_loop(group, moves, times):
+    original_group = group[:]
+    group = dance(group, moves)
+    index = 1
+    while (index <= times) & (group != original_group):
+        group = dance(group, moves)
+        index += 1
+
+    return index, group
+
+
+
 if __name__ == '__main__':
     moves = []
     with open('data/input_data_20171216.csv', 'r') as csvfile:
@@ -74,7 +92,24 @@ if __name__ == '__main__':
         moves = sum(list(data), [])
     
     group = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p']
+    original = group[:]
+    print('---------- part one ---------')
+    print(dance(group, moves))
+
+
+    times = 1000000000
+
+    index, group = find_loop(original, moves, times)
+
+    print('---------- part two ---------')
+    print("Index: {}".format(index))
     print(group)
 
-    print(dance(group, moves))
+    times_mod = times % index
+    print(times_mod)
+
+    print('After just modulo dances')
+    original = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p']
+    print(original)
+    print(repeat_dance(original, moves, times_mod)) 
 
