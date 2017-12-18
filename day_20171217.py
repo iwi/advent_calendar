@@ -2,8 +2,6 @@
 """
 AoC solution day seventeen
 """
-import re
-import statistics as st
 
 def add_lock(spinlock, steps, position):
     size = len(spinlock)
@@ -22,9 +20,11 @@ if __name__ == '__main__':
     spinlock = [0]
     steps = 363
     position = 0
-    size = 100
+    size = 50000000
     for iter in range(size):
         spinlock, position = add_lock(spinlock, steps, position)
+        if (iter % 100000) == 0:
+            print(iter)
 
     print(spinlock)
         
