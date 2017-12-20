@@ -88,6 +88,7 @@ def move(tracker, maze):
 def follow_path(tracker, maze):
     while tracker['current'] != 'end':
         tracker = move(tracker, maze)
+        tracker['steps'] += 1
         print('x: ', tracker['x'])
         print('y: ', tracker['y'])
     return tracker
@@ -104,9 +105,11 @@ if __name__ == '__main__':
         'y': 0,
         'direction': 'S',
         'current': '|',
-        'letters': []
+        'letters': [],
+        'steps': 0
     }
 
     tracker = follow_path(tracker, maze)
     print('the captured letters are {}'.format(tracker['letters']))
+    print('the number of steps to end is {}'.format(tracker['steps']))
 
